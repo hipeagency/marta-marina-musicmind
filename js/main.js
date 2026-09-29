@@ -185,6 +185,8 @@
     prog5:         { variant: 'program', accent: '#2F4A55', side: 'bottom' },
     prog6:         { variant: 'program', accent: '#A98D6B', side: 'bottom' },
     prog7:         { variant: 'program', accent: '#5E7A87', side: 'bottom' },
+    prog8:         { variant: 'program', accent: '#6E8A96', side: 'bottom' },
+    prog9:         { variant: 'program', accent: '#3C5A5E', side: 'bottom' },
     story1:        { variant: 'wide',    accent: '#2F4A55', side: 'right'  }, // carousel cards
     story2:        { variant: 'wide',    accent: '#5E7A87', side: 'right'  },
     story3:        { variant: 'wide',    accent: '#A98D6B', side: 'right'  },
@@ -210,9 +212,9 @@
 
   // sequential panels → wizard navigation (move through them without closing)
   const GROUPS = [
-    ['prog1', 'prog2'],
+    ['prog1', 'prog2', 'prog8'],
     ['prog3', 'prog4'],
-    ['prog5', 'prog6', 'prog7']
+    ['prog5', 'prog7', 'prog9', 'prog6']
   ];
   function groupOf(id) {
     for (const list of GROUPS) { const i = list.indexOf(id); if (i > -1) return { list, index: i }; }
@@ -276,7 +278,7 @@
   function buildBrand() {
     const el = document.createElement('div');
     el.className = 'p-brand';
-    el.innerHTML = '<span class="p-brand__name">Marta Marina · MusicMind</span>' +
+    el.innerHTML = '<span class="p-brand__name">Marta Marina · Music Mind</span>' +
       '<div class="p-social">' +
         '<a href="https://www.instagram.com/martamarina.musicmind/" target="_blank" rel="noopener" aria-label="Instagram">' + IG_SVG + '</a>' +
         '<a href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">' + TT_SVG + '</a>' +
