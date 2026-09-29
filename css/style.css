@@ -238,7 +238,7 @@ body.menu-open .nav__toggle span:nth-child(3) { top: 8px; transform: rotate(-45d
 
 .hero__eyebrow { margin-bottom: 26px; }
 .hero h1 {
-  font-size: clamp(2.7rem, 7vw, 5.6rem);
+  font-size: clamp(2.4rem, 5.8vw, 4.6rem);
   letter-spacing: -0.02em; margin-bottom: 28px;
 }
 .hero h1 .ln { display: block; overflow: hidden; }
