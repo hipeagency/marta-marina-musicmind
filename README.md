@@ -32,7 +32,7 @@ apps-script/          → newsletter por Gmail (ver su README)
 | Textos de los pop-ups | `index.html`, bloque `<!-- DRAWER CONTENT -->` (las `<template>`) |
 | Pilares / programas | tarjetas en `index.html` + su `<template id="tpl-...">` |
 | **Foto de Marta** | sustituye la imagen en la sección `#marta` (`marta__portrait`) |
-| Email de contacto | busca `hola@martamarina.com` en `index.html` |
+| Email de contacto | busca `marta.marina@musicmind.es` en `index.html` |
 | Redes (IG / TikTok) | enlaces en el `<footer>` (`footer__social`) |
 | Colores | variables `:root` al inicio de `css/style.css` |
 

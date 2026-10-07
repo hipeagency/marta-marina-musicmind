@@ -280,7 +280,7 @@
       '<div class="p-social">' +
         '<a href="https://www.instagram.com/martamarina.musicmind/" target="_blank" rel="noopener" aria-label="Instagram">' + IG_SVG + '</a>' +
         '<a href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">' + TT_SVG + '</a>' +
-        '<a href="mailto:hola@martamarina.com" aria-label="Email">' + MAIL_SVG + '</a>' +
+        '<a href="mailto:marta.marina@musicmind.es" aria-label="Email">' + MAIL_SVG + '</a>' +
       '</div>';
     return el;
   }

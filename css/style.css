@@ -18,6 +18,13 @@
   src: url('../assets/fonts/cormorant-latin-italic.woff2') format('woff2');
   font-weight: 300 700; font-style: italic; font-display: swap;
 }
+/* Inter (SIL Open Font License) — self-hosted para no enviar la IP del visitante
+   a Google Fonts. Variable, subconjunto latin, pesos 400–500. */
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/inter-latin.woff2') format('woff2');
+  font-weight: 400 500; font-style: normal; font-display: swap;
+}
 
 /* ---------- Tokens ---------- */
 :root {
@@ -833,6 +840,7 @@ body.menu-open .nav__toggle span:nth-child(3) { top: 8px; transform: rotate(-45d
   transition: border-color .3s, box-shadow .3s;
 }
 .c-form textarea { min-height: 120px; resize: vertical; border-radius: 16px; }
+.c-form .c-note { display: block; margin-top: 8px; font-size: .74rem; line-height: 1.5; color: var(--ink); opacity: .7; }
 .c-form input:focus, .c-form textarea:focus { outline: none; border-color: var(--steel-blue); box-shadow: 0 0 0 4px rgba(110,138,150,.15); }
 .c-form .submit-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .c-msg { font-size: .88rem; min-height: 1.2em; }
