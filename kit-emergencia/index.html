@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Landing de captación · audio gratuito «Kit de emergencia».
+     Para medir de dónde viene cada lead, comparte el enlace con ?from=instagram, ?from=tiktok, etc.
+     Ese valor se guarda en la columna "Origen" de la hoja (pestaña LEADS AUDIO). -->
+<title>Kit de emergencia · Audio gratuito de Marta Marina · Music Mind</title>
+<meta name="description" content="Un audio guiado de 4 minutos para parar, respirar y volver a ti en mitad del ritmo de la industria musical. Gratis, de Marta Marina, fundadora de Music Mind.">
+<link rel="canonical" href="https://www.musicmind.es/kit-emergencia/">
+
+<meta property="og:title" content="Kit de emergencia · Audio gratuito de Marta Marina">
+<meta property="og:description" content="4 minutos para parar, respirar y volver a ti. Déjanos tu email y te lo enviamos.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.musicmind.es/kit-emergencia/">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Marta Marina · Music Mind">
+<meta property="og:image" content="https://www.musicmind.es/assets/img/marta-portrait.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="theme-color" content="#2F4A55">
+<link rel="icon" type="image/png" href="../assets/logos/LOGO MM-01.png">
+<link rel="stylesheet" href="../css/style.css?v=20261007">
+<style>
+  .lp-header { padding: 22px var(--pad); display: flex; justify-content: space-between; align-items: center; max-width: var(--maxw); margin-inline: auto; }
+  .lp-header img { height: 46px; width: auto; }
+  .lp-header a.back { font-size: .82rem; color: var(--muted); }
+  .lp-header a.back:hover { color: var(--ink); }
+
+  .lp-hero { padding-block: clamp(28px, 6vw, 80px) clamp(64px, 9vw, 120px); }
+  .lp-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .lp-hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.3rem, 5.2vw, 4.2rem); line-height: 1.04; margin: 18px 0 22px; }
+  .lp-hero h1 em { font-style: italic; color: var(--steel-blue); }
+  .lp-points { list-style: none; margin-top: 28px; display: grid; gap: 12px; }
+  .lp-points li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; color: var(--muted); }
+  .lp-points li::before { content: ''; width: 8px; height: 8px; margin-top: .62em; border-radius: 50%; background: var(--steel-blue); justify-self: center; }
+  .lp-meta { margin-top: 26px; font-size: .8rem; letter-spacing: .04em; color: var(--steel-blue); }
+
+  .lp-card { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: clamp(28px, 4vw, 44px); }
+  .lp-card h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.1; margin: 12px 0 10px; }
+  .lp-card h2 em { font-style: italic; color: var(--steel-blue); }
+  .lp-card > p { color: var(--muted); font-size: .95rem; margin-bottom: 22px; }
+  .lp-form { display: grid; gap: 14px; }
+  .lp-form input[type="email"] {
+    width: 100%; padding: 1em 1.2em; border-radius: 100px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--ink); font: inherit; font-size: .95rem;
+    transition: border-color .3s, box-shadow .3s;
+  }
+  .lp-form input[type="email"]:focus { outline: none; border-color: var(--steel-blue); box-shadow: 0 0 0 4px rgba(110,138,150,.15); }
+  .lp-form .btn { justify-content: center; }
+  .lp-form .btn[disabled] { opacity: .6; cursor: default; }
+  .lp-msg { font-size: .88rem; min-height: 1.2em; }
+  .lp-msg.err { color: #b4533f; }
+  .lp-done { display: none; text-align: center; padding-block: 12px; }
+  .lp-done h2 { margin-top: 6px; }
+  .lp-card.is-done .lp-form, .lp-card.is-done > p, .lp-card.is-done > .lp-intro { display: none; }
+  .lp-card.is-done .lp-done { display: block; }
+
+  .lp-marta { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: center; margin-top: clamp(48px, 7vw, 80px); padding-top: 32px; border-top: 1px solid var(--line); }
+  .lp-marta img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; filter: grayscale(.3); }
+  .lp-marta p { color: var(--muted); font-size: .95rem; max-width: 60ch; }
+  .lp-marta b { color: var(--ink); font-weight: 500; }
+
+  .lp-footer { background: var(--deep-ocean); color: rgba(220,230,234,.7); font-size: .78rem; }
+  .lp-footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-block: 26px; }
+  .lp-footer nav { display: flex; gap: 8px 22px; flex-wrap: wrap; }
+  .lp-footer a:hover { color: #fff; }
+
+  @media (max-width: 860px) {
+    .lp-grid { grid-template-columns: 1fr; }
+    .lp-marta { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .lp-footer .wrap { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="lp-header">
+  <a href="/" aria-label="Marta Marina · Music Mind — inicio"><img src="../assets/logos/LOGO MM-04.png" alt="Marta Marina · Music Mind"></a>
+  <a class="back" href="/">Conoce Music Mind →</a>
+</header>
+
+<main>
+  <section class="lp-hero">
+    <div class="wrap">
+      <div class="lp-grid">
+        <div>
+          <span class="eyebrow">Audio gratuito · Kit de emergencia</span>
+          <h1>Cuatro minutos <em>para volver a ti.</em></h1>
+          <p class="lead">Para esos días de llamadas, mensajes, prisa y expectativas ajenas. En la industria musical el ritmo nos empuja constantemente hacia fuera: el próximo lanzamiento, la última cifra, la urgencia de los demás. Este audio es una pausa para recordar quién hay detrás de todo ese engranaje.</p>
+          <ul class="lp-points">
+            <li>Una pausa guiada para soltar la carga del día, estés donde estés. Nada que hacer, nada que resolver, nada que demostrar.</li>
+            <li>Una respiración sencilla para que el cuerpo baje el ritmo y la cabeza vuelva a su sitio.</li>
+            <li>Un recordatorio que la inercia del trabajo nos hace olvidar: ningún lanzamiento vale más que tu paz mental.</li>
+          </ul>
+          <p class="lp-meta">4 minutos · Para artistas y equipos de la industria musical · Guárdalo y vuelve a él cuando lo necesites</p>
+        </div>
+
+        <div class="lp-card" id="lpCard">
+          <div class="lp-intro">
+            <span class="eyebrow">Te lo enviamos por email</span>
+            <h2>Escúchalo <em>cuando lo necesites.</em></h2>
+          </div>
+          <p>Déjame tu email y te llega el kit al momento. Gratis.</p>
+          <form class="lp-form" id="lpForm" novalidate>
+            <input type="email" id="lpEmail" name="email" placeholder="tu@email.com" required autocomplete="email" aria-label="Tu email">
+            <label class="check">
+              <input type="checkbox" id="lpConsent" name="consent" required>
+              <span class="check__box" aria-hidden="true"></span>
+              <span class="check__text">He leído y acepto la <a class="link-underline" href="/#privacidad" target="_blank" rel="noopener">política de privacidad</a> y que se use mi email para enviarme este audio.</span>
+            </label>
+            <button type="submit" class="btn" id="lpBtn">Quiero mi kit <span class="arrow">→</span></button>
+            <div class="lp-msg" id="lpMsg" role="status" aria-live="polite"></div>
+          </form>
+          <div class="lp-done" role="status" aria-live="polite">
+            <span class="eyebrow">Listo</span>
+            <h2>Revisa <em>tu correo.</em></h2>
+            <p class="lead" style="margin-inline:auto">Te acabo de enviar el audio. Si no lo ves en unos minutos, mira en promociones o spam.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="lp-marta">
+        <img src="../assets/img/marta-portrait.jpg" alt="Marta Marina" loading="lazy">
+        <p><b>Soy Marta Marina.</b> Tras 25 años en Universal Music Spain, acompaño a artistas, equipos y empresas de la industria musical en todo lo que no se ve pero lo sostiene todo: la persona, sus relaciones y su mundo emocional. <a class="link-underline" href="/">Conoce Music Mind</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="lp-footer">
+  <div class="wrap">
+    <span>© <span id="year"></span> Marta Marina · Music Mind</span>
+    <nav aria-label="Enlaces legales">
+      <a href="/#aviso-legal">Aviso legal</a>
+      <a href="/#privacidad">Política de privacidad</a>
+      <a href="/#cookies">Política de cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Mismo endpoint de Apps Script que la web (js/main.js → APPS_SCRIPT_ID).
+  var ENDPOINT = 'https://script.google.com/macros/s/AKfycbw0wveMBW_nT-1N_zcVuboW_LnY4MyD0sXqHkJFsyhP1kn5Q7ZrqoP2Uo8zgeldKzxyrA/exec';
+  // Identificador de esta landing en la hoja y en Code.gs (LEAD_MAGNETS).
+  var MAGNET = 'kit-emergencia';
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var from = (new URLSearchParams(location.search).get('from') || 'directo').replace(/[^\w-]/g, '').slice(0, 30);
+  var form = document.getElementById('lpForm');
+  var email = document.getElementById('lpEmail');
+  var consent = document.getElementById('lpConsent');
+  var btn = document.getElementById('lpBtn');
+  var msg = document.getElementById('lpMsg');
+  var card = document.getElementById('lpCard');
+
+  function setMsg(t, type) { msg.textContent = t; msg.className = 'lp-msg' + (type ? ' ' + type : ''); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { setMsg('Introduce un email válido.', 'err'); email.focus(); return; }
+    if (!consent.checked) { setMsg('Debes aceptar la política de privacidad.', 'err'); consent.focus(); return; }
+
+    btn.disabled = true;
+    var orig = btn.innerHTML;
+    btn.innerHTML = 'Enviando…';
+    setMsg('', '');
+
+    var body = new URLSearchParams({ type: 'lead', magnet: MAGNET, email: v, consent: 'true', source: 'landing · ' + from });
+    fetch(ENDPOINT, { method: 'POST', body: body })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.result === 'success') { card.classList.add('is-done'); }
+        else { throw new Error(res && res.message); }
+      })
+      .catch(function () {
+        setMsg('No se ha podido enviar. Inténtalo de nuevo en un momento.', 'err');
+        btn.disabled = false; btn.innerHTML = orig;
+      });
+  });
+})();
+</script>
+</body>
+</html>

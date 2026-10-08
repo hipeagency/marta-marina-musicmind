@@ -532,6 +532,10 @@
   });
   overlay.addEventListener('click', closeModal);
   modalClose.addEventListener('click', closeModal);
+
+  // Enlaces directos a los textos legales (landing, emails): /#privacidad, /#cookies, /#aviso-legal
+  const LEGAL_HASH = { '#privacidad': 'privacy', '#cookies': 'cookies', '#aviso-legal': 'legal' };
+  if (LEGAL_HASH[location.hash]) openModal(LEGAL_HASH[location.hash]);
   document.addEventListener('keydown', (e) => {
     if (!modal.classList.contains('open')) return;
     if (e.key === 'Escape') { closeModal(); return; }
