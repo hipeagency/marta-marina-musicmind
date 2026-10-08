@@ -28,14 +28,73 @@
   .lp-header a.back { font-size: .82rem; color: var(--muted); }
   .lp-header a.back:hover { color: var(--ink); }
 
-  .lp-hero { padding-block: clamp(28px, 6vw, 80px) clamp(64px, 9vw, 120px); }
-  .lp-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
-  .lp-hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.3rem, 5.2vw, 4.2rem); line-height: 1.04; margin: 18px 0 22px; }
+  .lp-hero { position: relative; overflow: hidden; padding-block: clamp(28px, 6vw, 80px) clamp(64px, 9vw, 120px); }
+  .lp-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .lp-bg .blob { animation: lp-drift 11s ease-in-out infinite alternate; }
+  .lp-bg .blob--2 { animation-duration: 14s; animation-delay: -3s; }
+  .lp-bg .blob--3 { animation-duration: 8s; animation-delay: -5s; }
+  @keyframes lp-drift { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(7%, -8%, 0) scale(1.18); } }
+  .lp-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+
+  /* Halo respirando detrás de la tarjeta */
+  .lp-card { position: relative; }
+  .lp-card::before {
+    content: ''; position: absolute; inset: -18px; z-index: -1; border-radius: 40px;
+    background: radial-gradient(closest-side, rgba(94,122,135,.22), transparent 72%);
+    animation: lp-breathe 4.5s ease-in-out infinite;
+  }
+  @keyframes lp-breathe { 0%, 100% { transform: scale(.94); opacity: .55; } 50% { transform: scale(1.04); opacity: 1; } }
+
+  /* Entrada escalonada */
+  .lp-fade { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .lp-hero.ready .lp-fade { opacity: 1; transform: none; }
+  .lp-hero.ready .lp-fade[data-d="1"] { transition-delay: .05s; }
+  .lp-hero.ready .lp-fade[data-d="2"] { transition-delay: .16s; }
+  .lp-hero.ready .lp-fade[data-d="3"] { transition-delay: .27s; }
+  .lp-hero.ready .lp-fade[data-d="4"] { transition-delay: .38s; }
+  .lp-hero.ready .lp-fade[data-d="5"] { transition-delay: .49s; }
+  .lp-hero.ready .lp-fade[data-d="6"] { transition-delay: .6s; }
+
+  /* Referencia al audio: ondas + pulso de "respiración" */
+  .lp-audio-badge {
+    display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px;
+    padding: 7px 16px 7px 12px; border-radius: 100px;
+    background: var(--surface); border: 1px solid var(--line);
+  }
+  .lp-audio-badge .eyebrow { margin: 0; }
+  .lp-wave { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 3px; width: 26px; height: 20px; flex: none; }
+  .lp-wave::before {
+    content: ''; position: absolute; inset: -10px; border-radius: 50%;
+    background: var(--steel-blue); opacity: .3;
+    animation: lp-pulse 2s ease-in-out infinite;
+  }
+  .lp-wave i { position: relative; z-index: 1; display: block; width: 3.5px; height: 100%; border-radius: 2px; background: var(--steel-blue); animation: lp-bar 1s ease-in-out infinite; transform-origin: center; }
+  .lp-wave i:nth-child(1) { animation-delay: -.9s; }
+  .lp-wave i:nth-child(2) { animation-delay: -.6s; }
+  .lp-wave i:nth-child(3) { animation-delay: -.3s; }
+  .lp-wave i:nth-child(4) { animation-delay: -.75s; }
+  .lp-wave i:nth-child(5) { animation-delay: -.15s; }
+  @keyframes lp-bar { 0%, 100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
+  @keyframes lp-pulse { 0% { transform: scale(.8); opacity: .4; } 70% { transform: scale(1.7); opacity: 0; } 100% { opacity: 0; } }
+
+  /* CTA invita a hacer clic */
+  .lp-form .btn { animation: lp-cta 2.8s ease-in-out infinite; }
+  .lp-form .btn:hover { animation: none; }
+  @keyframes lp-cta { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lp-fade, .lp-bg .blob, .lp-wave i, .lp-wave::before, .lp-card::before, .lp-form .btn {
+      animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important;
+    }
+  }
+  .lp-hero h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(2.3rem, 5.2vw, 4.2rem); line-height: 1.04; margin: 18px 0 14px; }
   .lp-hero h1 em { font-style: italic; color: var(--steel-blue); }
-  .lp-points { list-style: none; margin-top: 28px; display: grid; gap: 12px; }
-  .lp-points li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; color: var(--muted); }
-  .lp-points li::before { content: ''; width: 8px; height: 8px; margin-top: .62em; border-radius: 50%; background: var(--steel-blue); justify-self: center; }
-  .lp-meta { margin-top: 26px; font-size: .8rem; letter-spacing: .04em; color: var(--steel-blue); }
+  .lp-tags { list-style: none; margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .lp-tags li {
+    font-size: .8rem; letter-spacing: .02em; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line);
+    padding: 7px 14px; border-radius: 100px;
+  }
 
   .lp-card { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: clamp(28px, 4vw, 44px); }
   .lp-card h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.1; margin: 12px 0 10px; }
@@ -82,22 +141,29 @@
 </header>
 
 <main>
-  <section class="lp-hero">
+  <section class="lp-hero" id="lpHero">
+    <div class="lp-bg" aria-hidden="true">
+      <span class="blob blob--1"></span>
+      <span class="blob blob--2"></span>
+      <span class="blob blob--3"></span>
+    </div>
     <div class="wrap">
       <div class="lp-grid">
         <div>
-          <span class="eyebrow">Audio gratuito · Kit de emergencia</span>
-          <h1>Cuatro minutos <em>para volver a ti.</em></h1>
-          <p class="lead">Para esos días de llamadas, mensajes, prisa y expectativas ajenas. En la industria musical el ritmo nos empuja constantemente hacia fuera: el próximo lanzamiento, la última cifra, la urgencia de los demás. Este audio es una pausa para recordar quién hay detrás de todo ese engranaje.</p>
-          <ul class="lp-points">
-            <li>Una pausa guiada para soltar la carga del día, estés donde estés. Nada que hacer, nada que resolver, nada que demostrar.</li>
-            <li>Una respiración sencilla para que el cuerpo baje el ritmo y la cabeza vuelva a su sitio.</li>
-            <li>Un recordatorio que la inercia del trabajo nos hace olvidar: ningún lanzamiento vale más que tu paz mental.</li>
+          <div class="lp-audio-badge lp-fade" data-d="1">
+            <span class="lp-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="eyebrow">Audio gratuito · Kit de emergencia</span>
+          </div>
+          <h1 class="lp-fade" data-d="2">Cuatro minutos <em>para volver a ti.</em></h1>
+          <p class="lead lp-fade" data-d="3">Una pausa guiada para soltar la presión del día y reconectar contigo. Gratis, al momento, por email.</p>
+          <ul class="lp-tags lp-fade" data-d="4">
+            <li>4 minutos</li>
+            <li>100% gratis</li>
+            <li>Guiado por Marta Marina</li>
           </ul>
-          <p class="lp-meta">4 minutos · Para artistas y equipos de la industria musical · Guárdalo y vuelve a él cuando lo necesites</p>
         </div>
 
-        <div class="lp-card" id="lpCard">
+        <div class="lp-card lp-fade" data-d="3" id="lpCard">
           <div class="lp-intro">
             <span class="eyebrow">Te lo enviamos por email</span>
             <h2>Escúchalo <em>cuando lo necesites.</em></h2>
@@ -121,7 +187,7 @@
         </div>
       </div>
 
-      <div class="lp-marta">
+      <div class="lp-marta lp-fade" data-d="6">
         <img src="../assets/img/marta-portrait.jpg" alt="Marta Marina" loading="lazy">
         <p><b>Soy Marta Marina.</b> Tras 25 años en Universal Music Spain, acompaño a artistas, equipos y empresas de la industria musical en todo lo que no se ve pero lo sostiene todo: la persona, sus relaciones y su mundo emocional. <a class="link-underline" href="/">Conoce Music Mind</a>.</p>
       </div>
@@ -148,6 +214,9 @@
   var MAGNET = 'kit-emergencia';
 
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  var lpHero = document.getElementById('lpHero');
+  requestAnimationFrame(function () { requestAnimationFrame(function () { lpHero.classList.add('ready'); }); });
 
   var from = (new URLSearchParams(location.search).get('from') || 'directo').replace(/[^\w-]/g, '').slice(0, 30);
   var form = document.getElementById('lpForm');
