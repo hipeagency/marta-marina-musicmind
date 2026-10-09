@@ -224,7 +224,7 @@ function emailLayout(o) {
     return '<td width="8" align="center" valign="middle"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="3" height="' + height + '" style="background:' + accent + ';border-radius:3px;font-size:0;line-height:0">&nbsp;</td></tr></table></td>';
   }).join('');
   var audioLinks = (o.audioLinks || []).map(function (audio, index) {
-    var listenUrl = escapeHtml(audio.url);
+    var listenUrl = escapeHtml(audio.downloadUrl ? audio.downloadUrl.split('#')[0] : audio.url);
     var download = audio.downloadUrl ? '<a href="' + escapeHtml(audio.downloadUrl) + '" style="font-family:' + sans + ';font-size:14px;font-weight:600;color:' + ink + ';text-decoration:underline">Descargar audio &darr;</a>' : '';
     return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;background:' + bg + ';border:1px solid #DEDAD3;border-radius:16px"><tr><td style="padding:24px">' +
       '<p style="margin:0 0 10px;font-family:' + sans + ';font-size:10px;letter-spacing:2px;color:' + accent + '">AUDIO 0' + (index + 1) + ' &middot; MP3</p>' +
@@ -234,8 +234,7 @@ function emailLayout(o) {
         '<td width="58"><a href="' + listenUrl + '" aria-label="Escuchar ' + escapeHtml(audio.title) + '" style="display:inline-block;width:46px;line-height:46px;background:' + ink + ';border-radius:50%;font-family:Arial,sans-serif;font-size:20px;text-align:center;color:#ffffff;text-decoration:none">&#9654;</a></td>' +
         '<td><table role="presentation" aria-hidden="true" cellpadding="0" cellspacing="0" width="100%" height="48"><tr>' + wave + '</tr></table></td>' +
       '</tr></table>' +
-      '<p style="margin:16px 0 10px;font-family:' + sans + ';font-size:14px"><a href="' + listenUrl + '" style="font-weight:600;color:' + ink + ';text-decoration:underline">Escuchar audio &rarr;</a></p>' +
-      '<p style="margin:0;font-family:' + sans + ';font-size:14px">' + download + '</p>' +
+      '<p style="margin:16px 0 0;font-family:' + sans + ';font-size:14px">' + download + '</p>' +
     '</td></tr></table>';
   }).join('');
   var title = o.title.replace(/<em>/g, '<em style="font-style:italic;color:' + accent + '">');

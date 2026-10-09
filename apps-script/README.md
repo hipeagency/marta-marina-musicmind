@@ -30,7 +30,7 @@ usando un **Google Apps Script** desplegado como *Web App*. No necesitas servido
 - Para ver los dos correos completos, configura `PREVIEW_TO` en `Code.gs` y ejecuta
   `previewEmails` desde el editor de Apps Script.
 - Ambos correos muestran una tarjeta por audio con play, onda decorativa y enlaces
-  para escuchar y descargar. El play abre el MP3 en el navegador; la descarga
+  para descargar. El play abre la página con el reproductor; la descarga
   abre `audios/?audio=...#descargar`, donde el botón permite guardar el archivo.
   Publica la carpeta `audios/` junto con la web antes de activar estas plantillas
   en una nueva versión de Apps Script.
