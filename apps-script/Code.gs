@@ -4,9 +4,9 @@
    ---------------------------------------------------------
    Qué hace:
    - Newsletter (web): guarda el alta, envía el email de bienvenida
-     con el audio de regalo y te avisa por email.
+     con los audios de regalo y te avisa por email.
    - Contacto (web): guarda el mensaje y te avisa por email.
-   - Lead (landing de audio): guarda el lead, le envía el audio
+  - Lead (landing de audio): guarda el lead, le envía los audios
      por email y te avisa.
    - En todos los casos registra el consentimiento (RGPD).
    ========================================================= */
@@ -28,19 +28,31 @@ var SENDER_NAME = 'Marta Marina · Music Mind';
 var REPLY_TO = 'marta.marina@musicmind.es';
 var SITE_URL = 'https://www.musicmind.es/';
 
-// 4) Audios de regalo. Sube los MP3 a la carpeta assets/audio/ de la web.
+// 4) Audio de bienvenida y audios del kit. Sube los MP3 a assets/audio/.
 //    Si url está vacía, no se envía el email del audio (solo se registra).
 var WELCOME_AUDIO = {
   title: 'Antes de entrar',
   url: 'https://www.musicmind.es/assets/audio/antes-de-entrar.mp3'
 };
+var KIT_AUDIOS = [
+  {
+    title: 'Antes de exponerte',
+    description: 'Para los minutos previos a una reunión, una entrevista o un escenario. Escúchalo justo antes de entrar.',
+    url: WELCOME_AUDIO.url,
+    downloadUrl: SITE_URL + 'audios/?audio=antes-de-entrar#descargar'
+  },
+  {
+    title: 'Después de un día duro',
+    description: 'Para soltar lo que cargaste durante el día y volver a ti. Escúchalo cuando puedas cerrar los ojos un momento.',
+    url: 'https://www.musicmind.es/assets/audio/kit-emergencia.mp3',
+    downloadUrl: SITE_URL + 'audios/?audio=kit-emergencia#descargar'
+  }
+];
 // Una entrada por landing. La clave es el MAGNET de la landing (kit-emergencia/index.html).
 var LEAD_MAGNETS = {
   'kit-emergencia': {
     title: 'Tu kit de emergencia',
-    url: 'https://www.musicmind.es/assets/audio/kit-emergencia.mp3',
-    intro: 'Aquí tienes tu kit de emergencia: cuatro minutos para parar, respirar y volver a ti. Mejor con auriculares, en un sitio donde puedas cerrar los ojos un momento.',
-    outro: 'Guárdalo cerca y úsalo cada vez que sientas que el ritmo de fuera intenta arrastrarte. Recuerda que siempre puedes parar, y que el camino de regreso a ti está solo a una exhalación de distancia.'
+    audios: KIT_AUDIOS
   }
 };
 // ============================================================
@@ -49,10 +61,10 @@ var LEAD_MAGNETS = {
 // consentimiento (RGPD): guárdalo tal cual aparece en la web. Si cambias el
 // texto en la web, actualiza también estas constantes (subiendo la versión)
 // para que quede registrado a qué consintió cada persona y cuándo.
-var CONSENT_VERSION = '2026-10-07';
+var CONSENT_VERSION = '2026-10-09';
 var CONSENT_TEXT_CONTACT = 'He leído y acepto la política de privacidad y el tratamiento de mis datos para responder a mi consulta.';
 var CONSENT_TEXT_NEWS = 'Acepto recibir la newsletter y la política de privacidad. Sin spam; puedes darte de baja cuando quieras.';
-var CONSENT_TEXT_LEAD = 'He leído y acepto la política de privacidad y que se use mi email para enviarme este audio.';
+var CONSENT_TEXT_LEAD = 'He leído y acepto la política de privacidad y que se use mi email para enviarme estos audios.';
 
 function doPost(e) {
   try {
@@ -143,7 +155,7 @@ function handleLead(p, email, source, ts, consentCell) {
     sheet.appendRow([ts, email, key, source, consentCell, CONSENT_TEXT_LEAD]);
   }
   // Se envía siempre (aunque repita): quien lo pide otra vez probablemente lo ha perdido.
-  if (magnet.url) {
+  if (magnet.audios && magnet.audios.length) {
     sendToSubscriber(email, magnet.title + ' · Music Mind', leadHtml(magnet));
   }
   MailApp.sendEmail({
@@ -155,7 +167,7 @@ function handleLead(p, email, source, ts, consentCell) {
       ['Consentimiento', consentCell + ' — «' + CONSENT_TEXT_LEAD + '»']
     ])
   });
-  return json({ result: 'success', message: 'Audio enviado.' });
+  return json({ result: 'success', message: 'Audios enviados.' });
 }
 
 // Healthcheck (abrir la URL en el navegador)
@@ -169,16 +181,16 @@ function doGet() {
 
 function welcomeHtml() {
   return emailLayout({
-    preheader: 'Gracias por unirte. Aquí tienes tu audio de regalo.',
+    preheader: 'Gracias por unirte. Aquí tienes dos pausas guiadas para tener cerca.',
     eyebrow: 'Bienvenida',
-    title: 'Gracias por <em>estar aquí.</em>',
+    title: 'Dos pausas <em>para volver a ti.</em>',
     paragraphs: [
       'Hola:',
-      'Soy Marta Marina. Me alegra mucho que te hayas unido a Music Mind. Cada mes te escribiré con una mirada honesta a lo que ocurre dentro de la industria musical, y con herramientas para cuidarte en ella.',
-      'Para empezar, te regalo un audio: <b>' + escapeHtml(WELCOME_AUDIO.title) + '</b>. Son tres minutos pensados para los momentos previos a una reunión importante, a defender un proyecto o a una entrevista delante de mucha gente. Escúchalo justo antes de entrar.',
-      'Porque no vas a demostrar nada: vas a compartir lo que sabes. Y la diferencia es enorme.'
+      'Aquí lo tienes. Los audios para dos de los momentos que más pesan.',
+      'Guárdalos cerca. Son tuyos para cuando los necesites.',
+      'Y si quieres contarme cómo te han ido, responde a este email. Los leo todos.'
     ],
-    button: { text: 'Escuchar el audio', url: WELCOME_AUDIO.url },
+    audioLinks: KIT_AUDIOS,
     closing: 'Un abrazo,<br>Marta',
     footer: 'Recibes este email porque te has suscrito a la newsletter de Music Mind en musicmind.es. Si no quieres recibir más emails, responde a este correo con la palabra «BAJA» y te daré de baja.'
   });
@@ -186,18 +198,18 @@ function welcomeHtml() {
 
 function leadHtml(magnet) {
   return emailLayout({
-    preheader: 'Cuatro minutos para parar, respirar y volver a ti.',
-    eyebrow: 'Tu audio',
-    title: escapeHtml(magnet.title),
+    preheader: 'Dos pausas guiadas para cuando la presión de la industria musical aprieta.',
+    eyebrow: 'Tu kit de emergencia',
+    title: 'Dos pausas <em>para volver a ti.</em>',
     paragraphs: [
       'Hola:',
-      magnet.intro,
-      magnet.outro,
-      'Si te resuena y quieres hablar de tu caso, solo tienes que responder a este email.'
+      'Aquí lo tienes. Los audios para dos de los momentos que más pesan.',
+      'Guárdalos cerca. Son tuyos para cuando los necesites.',
+      'Y si quieres contarme cómo te han ido, responde a este email. Los leo todos.'
     ],
-    button: { text: 'Escuchar el audio', url: magnet.url },
-    closing: 'Un abrazo,<br>Marta Marina',
-    footer: 'Recibes este email porque lo has solicitado en musicmind.es. No te hemos suscrito a ninguna lista: solo te enviamos este audio.'
+    audioLinks: magnet.audios,
+    closing: 'Un abrazo,<br>Marta',
+    footer: 'Recibes este email porque lo has solicitado en musicmind.es. No te hemos suscrito a ninguna lista: solo te enviamos estos audios.'
   });
 }
 
@@ -206,6 +218,25 @@ function emailLayout(o) {
   var serif = "Georgia,'Times New Roman',serif", sans = "'Helvetica Neue',Helvetica,Arial,sans-serif";
   var paras = o.paragraphs.map(function (t) {
     return '<p style="margin:0 0 16px;font-family:' + sans + ';font-size:16px;line-height:1.6;color:' + muted + '">' + t + '</p>';
+  }).join('');
+  // Decorative waveform built with tables so it also works without images.
+  var wave = [10, 18, 28, 16, 36, 24, 42, 30, 18, 34, 46, 26, 38, 20, 32, 44, 24, 14, 30, 20, 38, 28, 16, 10].map(function (height) {
+    return '<td width="8" align="center" valign="middle"><table role="presentation" cellpadding="0" cellspacing="0"><tr><td width="3" height="' + height + '" style="background:' + accent + ';border-radius:3px;font-size:0;line-height:0">&nbsp;</td></tr></table></td>';
+  }).join('');
+  var audioLinks = (o.audioLinks || []).map(function (audio, index) {
+    var listenUrl = escapeHtml(audio.url);
+    var download = audio.downloadUrl ? '<a href="' + escapeHtml(audio.downloadUrl) + '" style="font-family:' + sans + ';font-size:14px;font-weight:600;color:' + ink + ';text-decoration:underline">Descargar audio &darr;</a>' : '';
+    return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;background:' + bg + ';border:1px solid #DEDAD3;border-radius:16px"><tr><td style="padding:24px">' +
+      '<p style="margin:0 0 10px;font-family:' + sans + ';font-size:10px;letter-spacing:2px;color:' + accent + '">AUDIO 0' + (index + 1) + ' &middot; MP3</p>' +
+      '<h2 style="margin:0 0 10px;font-family:' + serif + ';font-size:23px;font-weight:400;color:' + ink + '">' + escapeHtml(audio.title) + '</h2>' +
+      '<p style="margin:0 0 20px;font-family:' + sans + ';font-size:15px;line-height:1.6;color:' + muted + '">' + escapeHtml(audio.description) + '</p>' +
+      '<table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr>' +
+        '<td width="58"><a href="' + listenUrl + '" aria-label="Escuchar ' + escapeHtml(audio.title) + '" style="display:inline-block;width:46px;line-height:46px;background:' + ink + ';border-radius:50%;font-family:Arial,sans-serif;font-size:20px;text-align:center;color:#ffffff;text-decoration:none">&#9654;</a></td>' +
+        '<td><table role="presentation" aria-hidden="true" cellpadding="0" cellspacing="0" width="100%" height="48"><tr>' + wave + '</tr></table></td>' +
+      '</tr></table>' +
+      '<p style="margin:16px 0 10px;font-family:' + sans + ';font-size:14px"><a href="' + listenUrl + '" style="font-weight:600;color:' + ink + ';text-decoration:underline">Escuchar audio &rarr;</a></p>' +
+      '<p style="margin:0;font-family:' + sans + ';font-size:14px">' + download + '</p>' +
+    '</td></tr></table>';
   }).join('');
   var title = o.title.replace(/<em>/g, '<em style="font-style:italic;color:' + accent + '">');
   return '' +
@@ -221,9 +252,7 @@ function emailLayout(o) {
           '<p style="margin:0 0 14px;font-family:' + sans + ';font-size:11px;letter-spacing:3px;text-transform:uppercase;color:' + accent + '">' + o.eyebrow + '</p>' +
           '<h1 style="margin:0 0 24px;font-family:' + serif + ';font-weight:400;font-size:32px;line-height:1.15;color:' + ink + '">' + title + '</h1>' +
           paras +
-          '<table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px 0"><tr><td style="background:' + ink + ';border-radius:100px">' +
-            '<a href="' + o.button.url + '" style="display:inline-block;padding:14px 28px;font-family:' + sans + ';font-size:15px;font-weight:500;color:#ffffff;text-decoration:none">' + o.button.text + ' &rarr;</a>' +
-          '</td></tr></table>' +
+          audioLinks +
           '<p style="margin:0;font-family:' + sans + ';font-size:16px;line-height:1.6;color:' + ink + '">' + o.closing + '</p>' +
         '</td></tr>' +
         '<tr><td style="padding:24px 12px 0;font-family:' + sans + ';font-size:12px;line-height:1.6;color:' + muted + ';text-align:center">' +
@@ -285,7 +314,7 @@ function json(obj) {
 
 /* ---------- Previsualizar emails ----------
    Ejecuta esta función desde el editor (▶ Ejecutar) para recibir en
-   PREVIEW_TO cómo se ven los emails de bienvenida y del audio. */
+  PREVIEW_TO cómo se ven los emails de bienvenida y del kit. */
 var PREVIEW_TO = 'maxim@hipeagency.es';
 function previewEmails() {
   MailApp.sendEmail({ to: PREVIEW_TO, subject: '[PRUEBA] Bienvenida', htmlBody: welcomeHtml(), name: SENDER_NAME, replyTo: REPLY_TO });
