@@ -231,7 +231,7 @@ function emailLayout(o) {
       '<h2 style="margin:0 0 10px;font-family:' + serif + ';font-size:23px;font-weight:400;color:' + ink + '">' + escapeHtml(audio.title) + '</h2>' +
       '<p style="margin:0 0 20px;font-family:' + sans + ';font-size:15px;line-height:1.6;color:' + muted + '">' + escapeHtml(audio.description) + '</p>' +
       '<table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr>' +
-        '<td width="58"><a href="' + listenUrl + '" aria-label="Escuchar ' + escapeHtml(audio.title) + '" style="display:inline-block;width:46px;line-height:46px;background:' + ink + ';border-radius:50%;font-family:Arial,sans-serif;font-size:20px;text-align:center;color:#ffffff;text-decoration:none">&#9654;</a></td>' +
+        '<td width="58"><a href="' + listenUrl + '" aria-label="Escuchar ' + escapeHtml(audio.title) + '" style="display:inline-block;width:46px;line-height:46px;background:' + ink + ';border-radius:50%;font-family:Arial,sans-serif;font-size:20px;text-align:center;color:#ffffff;text-decoration:none">&#9658;</a></td>' +
         '<td><table role="presentation" aria-hidden="true" cellpadding="0" cellspacing="0" width="100%" height="48"><tr>' + wave + '</tr></table></td>' +
       '</tr></table>' +
       '<p style="margin:16px 0 0;font-family:' + sans + ';font-size:14px">' + download + '</p>' +
