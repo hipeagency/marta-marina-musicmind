@@ -245,7 +245,7 @@ function emailLayout(o) {
     '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:' + bg + '"><tr><td align="center" style="padding:32px 16px">' +
       '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px">' +
         '<tr><td align="center" style="padding:0 0 24px">' +
-          '<a href="' + SITE_URL + '"><img src="' + SITE_URL + 'assets/logos/LOGO%20MM-04.png" alt="Marta Marina · Music Mind" height="44" style="height:44px;border:0"></a>' +
+          '<a href="' + SITE_URL + '"><img src="' + SITE_URL + 'assets/logos/LOGO%20MM-04.png" alt="Marta Marina · Music Mind" width="300" style="display:block;width:300px;max-width:100%;height:auto;border:0"></a>' +
         '</td></tr>' +
         '<tr><td style="background:' + surface + ';border:1px solid rgba(58,61,64,.13);border-radius:24px;padding:40px 36px">' +
           '<p style="margin:0 0 14px;font-family:' + sans + ';font-size:11px;letter-spacing:3px;text-transform:uppercase;color:' + accent + '">' + o.eyebrow + '</p>' +
